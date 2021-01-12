@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { IonPage } from "@ionic/react";
 
+export const graphQLserverUri = "http://10.0.2.2:4000/graphql";
+
 //Routes
 export const HOME_ROUTE = "/home";
 export const EDIT_ROUTE = "/editTimer/";

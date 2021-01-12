@@ -14,17 +14,39 @@ import {
   IonLabel,
   IonInput,
   IonIcon,
+  useIonViewWillEnter,
 } from "@ionic/react";
+import { useHistory } from "react-router-dom";
 import { save } from "ionicons/icons";
-import { StyledPage } from "../utils/constants";
 import { Timer, newTimer, TimerEvent, newTimerEvent } from "../utils/dataModel";
+import { StyledPage, HOME_ROUTE } from "../utils/constants";
+import { DatabaseAccess } from "../data/dataAccess";
+import { Error } from "../components/Status-Messages";
 import DurationPickerComponent from "../components/Duration-Picker";
 import EventList from "../components/EventList";
 
 const EditTimer: React.FC = () => {
   let { id } = useParams<{ id: string }>();
 
+  const history = useHistory();
+  const dataAccess = new DatabaseAccess();
+
   const [timer, setTimer] = useState<Timer>(newTimer());
+
+  useIonViewWillEnter(() => {
+    initializeState();
+  }, []);
+
+  const initializeState = async () => {
+    if (id !== "new") {
+      try {
+        const data = await dataAccess.getTimer(id);
+        setTimer(data.timer);
+      } catch (err) {
+        return <Error error={err} />;
+      }
+    }
+  };
 
   function handleNumberChange(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -53,19 +75,26 @@ const EditTimer: React.FC = () => {
   function handleEventChange(updatedEvents: Array<TimerEvent>) {
     setTimer({
       ...timer,
-      events: updatedEvents,
+      timerEvents: updatedEvents,
     });
   }
 
   function addNewTimerEvent(): void {
-    let currentEvents = timer.events;
+    let currentEvents = timer.timerEvents;
 
     currentEvents.push(newTimerEvent());
 
     setTimer({
       ...timer,
-      events: currentEvents,
+      timerEvents: currentEvents,
     });
+  }
+
+  function saveTimer(): void {
+    if (id === "new") dataAccess.addTimer(timer);
+    else dataAccess.updateTimer(timer);
+
+    history.replace(HOME_ROUTE);
   }
 
   return (
@@ -77,7 +106,7 @@ const EditTimer: React.FC = () => {
           </IonButtons>
           <IonTitle>{id === "new" ? "Create Timer" : "Edit Timer"} </IonTitle>
           <IonButtons slot="end">
-            <IonButton>
+            <IonButton onClick={() => saveTimer()}>
               Save <IonIcon icon={save} />
             </IonButton>
           </IonButtons>
@@ -87,7 +116,7 @@ const EditTimer: React.FC = () => {
       <IonContent fullscreen>
         <IonCard>
           <div className="small-picture">
-            <img src="./assets/undraw_time_management.svg" />
+            <img alt="Flex-Timer" src="./assets/undraw_time_management.svg" />
           </div>
           <IonCardHeader>
             <IonLabel>Name</IonLabel>
@@ -118,7 +147,7 @@ const EditTimer: React.FC = () => {
         </div>
 
         <EventList
-          timerEvents={timer.events}
+          timerEvents={timer.timerEvents}
           handleChange={handleEventChange}
         ></EventList>
       </IonContent>

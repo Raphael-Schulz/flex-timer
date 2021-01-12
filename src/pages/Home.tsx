@@ -17,7 +17,7 @@ const Home: React.FC = () => {
     <StyledPage>
       <IonContent fullscreen>
         <div className="picture">
-          <img src="./assets/undraw_season_change.svg" />
+          <img alt="Flex-Timer" src="./assets/undraw_season_change.svg" />
         </div>
 
         <IonHeader collapse="condense">

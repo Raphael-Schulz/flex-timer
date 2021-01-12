@@ -5,14 +5,17 @@ import {
   IonList,
   IonIcon,
   IonAlert,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { EDIT_ROUTE, EXECUTE_ROUTE } from "../utils/constants";
 import { create, trash } from "ionicons/icons";
 import { Timer } from "../utils/dataModel";
+import { EDIT_ROUTE, EXECUTE_ROUTE } from "../utils/constants";
+import { DatabaseAccess } from "../data/dataAccess";
+import { Error } from "./Status-Messages";
 
 const StyledList = styled(IonList)`
   .seperator {
@@ -21,25 +24,35 @@ const StyledList = styled(IonList)`
 `;
 
 const TimerList: React.FC = () => {
+  const dataAccess = new DatabaseAccess();
   const history = useHistory();
 
   const [showDeleteRequestAlert, setShowDeleteRequestAlert] = useState(false);
-  const [deleteRequestTimerId, setDeleteRequestTimerId] = useState(-1);
+  const [deleteRequestTimerId, setDeleteRequestTimerId] = useState("-1");
 
-  let timers: Array<Timer> = [
-    {
-      id: 1,
-      name: "20 minute Training",
-      duration: 360,
-      events: [
-        {
-          time: 20,
-          type: "tts",
-          text: "This is a test speech!",
-        },
-      ],
-    },
-  ];
+  const [timers, setTimers] = useState<Array<Timer>>([]);
+
+  useIonViewWillEnter(() => {
+    initializeState();
+  }, []);
+
+  const initializeState = async () => {
+    try {
+      const data = await dataAccess.getTimers();
+      setTimers(data.timers);
+    } catch (err) {
+      return <Error error={err} />;
+    }
+  };
+
+  function deleteTimer(id: string) {
+    dataAccess.deleteTimer(id);
+
+    let newTimers = timers.filter(
+      (timer: Timer) => timer.id !== deleteRequestTimerId
+    );
+    setTimers(newTimers);
+  }
 
   return (
     <>
@@ -47,12 +60,12 @@ const TimerList: React.FC = () => {
         isOpen={showDeleteRequestAlert}
         onDidDismiss={() => {
           setShowDeleteRequestAlert(false);
-          setDeleteRequestTimerId(-1);
+          setDeleteRequestTimerId("-1");
         }}
         header={"Delete Timer?"}
         message={
           "Do you really want to delete Timer: " +
-          timers.find((timer) => timer.id === deleteRequestTimerId)?.name
+          timers.find((timer: Timer) => timer.id === deleteRequestTimerId)?.name
         }
         buttons={[
           {
@@ -63,7 +76,7 @@ const TimerList: React.FC = () => {
           {
             text: "Yes",
             handler: () => {
-              //TODO: Delete Timer with id
+              deleteTimer(deleteRequestTimerId);
             },
           },
         ]}

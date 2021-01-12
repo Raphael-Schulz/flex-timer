@@ -1,33 +1,34 @@
 # flex-timer
 
-Simple App which lets you create and execute Timers with custom Events (i.e. TextToSpeech).
+Simple App to create, edit and execute Timers with custom Events (i.e. TextToSpeech).
 
 ## Built with Ionic (Capacitor)
 
 Project-Type: REACT
 
-Should run on Android as well as IOS -> currently only configured for Android.
-The "android" folder contains a ready to use build of the current version to run the app with Android Studio.
+Currently only configured for Android.  
+The [android](https://github.com/Raphael-Schulz/flex-timer/tree/main/android) folder contains a ready to use build of the current version to run the app with Android Studio.
+
+<br>
+<br>
 
 <table border="0">
  <tr>
-    <td> 
+    <td>
 
-![Screenshot](https://github.com/Raphael-Schulz/flex-timer/blob/main/public/assets/leafs-2.jpg?raw=true)
+![Screenshot](https://github.com/Raphael-Schulz/flex-timer/blob/main/public/screenshots/timer-list.PNG?raw=true)
 
  </td>
  <td>
 
-![Screenshot](https://github.com/Raphael-Schulz/flex-timer/blob/main/public/assets/leafs-2.jpg?raw=true)
+![Screenshot](https://github.com/Raphael-Schulz/flex-timer/blob/main/public/screenshots/create-edit.PNG?raw=true)
 
 </td>
 <td>
 
-![Screenshot](https://github.com/Raphael-Schulz/flex-timer/blob/main/public/assets/leafs-2.jpg?raw=true)
+![Screenshot](https://github.com/Raphael-Schulz/flex-timer/blob/main/public/screenshots/execute.PNG?raw=true)
 
 </td>
  </tr>
 
 </table>
-
-

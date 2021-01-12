@@ -118,8 +118,9 @@ const EventList: React.FC<ContainerProps> = (props) => {
             <IonItem lines="none" className="select">
               <IonLabel>Event Type</IonLabel>
               <IonSelect
+                name="type"
                 value={timerEvent.type}
-                placeholder="TextToSpeech"
+                placeholder="Choose type..."
                 onIonChange={(e) => handleTextChange(e, index)}
               >
                 <IonSelectOption value="TextToSpeech">
