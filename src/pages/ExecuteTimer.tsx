@@ -52,7 +52,7 @@ const ExecuteTimer: React.FC = () => {
           <div className="bottom">
             <IonProgressBar
               className="margin-bottom"
-              value={0.5}
+              value={0}
             ></IonProgressBar>
             <br />
 

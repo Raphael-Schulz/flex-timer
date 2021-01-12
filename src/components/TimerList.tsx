@@ -29,7 +29,7 @@ const TimerList: React.FC = () => {
   let timers: Array<Timer> = [
     {
       id: 1,
-      name: "20 Minuten Workout ",
+      name: "20 minute Training",
       duration: 360,
       events: [
         {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import {
   IonContent,
   IonHeader,
@@ -14,23 +15,16 @@ import {
   IonInput,
   IonIcon,
 } from "@ionic/react";
-import { useParams } from "react-router";
+import { save } from "ionicons/icons";
 import { StyledPage } from "../utils/constants";
+import { Timer, newTimer, TimerEvent, newTimerEvent } from "../utils/dataModel";
 import DurationPickerComponent from "../components/Duration-Picker";
 import EventList from "../components/EventList";
-import { save } from "ionicons/icons";
-import { newTimerEvent, Timer, TimerEvent } from "../utils/dataModel";
 
 const EditTimer: React.FC = () => {
-  const testTimer: Timer = {
-    id: 1,
-    name: "",
-    duration: 0,
-    events: [],
-  };
   let { id } = useParams<{ id: string }>();
 
-  const [timer, setTimer] = useState<Timer>(testTimer);
+  const [timer, setTimer] = useState<Timer>(newTimer());
 
   function handleNumberChange(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -62,8 +56,6 @@ const EditTimer: React.FC = () => {
       events: updatedEvents,
     });
   }
-
-  //
 
   function addNewTimerEvent(): void {
     let currentEvents = timer.events;
