@@ -31,3 +31,6 @@ Currently only configured for Android.
  </tr>
 
 </table>
+
+### Illustrations:
+<a href='https://de.freepik.com/fotos/hintergrund'>Background created by - freepik.com</a>
