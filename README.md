@@ -6,8 +6,7 @@ Simple App to create, edit and execute Timers with custom Events (i.e. TextToSpe
 
 Project-Type: REACT
 
-Currently only configured for Android.  
-The [android](https://github.com/Raphael-Schulz/flex-timer/tree/main/android) folder contains a ready to use build of the current version to run the app with Android Studio.
+Currently only configured for Android.
 
 <br>
 <br>
