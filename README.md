@@ -34,3 +34,4 @@ Currently only configured for Android.
 
 ### Illustrations:
 <a href='https://de.freepik.com/fotos/hintergrund'>Background created by - freepik.com</a>
+<a href='https://undraw.co/'>Illustrations created by - undraw.com</a>
