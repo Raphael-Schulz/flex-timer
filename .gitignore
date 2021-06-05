@@ -11,6 +11,7 @@
 
 # production
 /build
+/android
 
 # mongoDB user information
 /server/dbUser.js
