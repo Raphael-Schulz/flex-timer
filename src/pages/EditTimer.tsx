@@ -20,7 +20,7 @@ import { useHistory } from "react-router-dom";
 import { save } from "ionicons/icons";
 import { Timer, newTimer, TimerEvent, newTimerEvent } from "../utils/dataModel";
 import { StyledPage, HOME_ROUTE } from "../utils/constants";
-import { DatabaseAccess } from "../data/dataAccess";
+import { LoaclStorageAccess } from "../data/dataAccess";
 import { Error } from "../components/Status-Messages";
 import DurationPickerComponent from "../components/Duration-Picker";
 import EventList from "../components/EventList";
@@ -29,7 +29,7 @@ const EditTimer: React.FC = () => {
   let { id } = useParams<{ id: string }>();
 
   const history = useHistory();
-  const dataAccess = new DatabaseAccess();
+  const dataAccess = new LoaclStorageAccess();
 
   const [timer, setTimer] = useState<Timer>(newTimer());
 
@@ -40,8 +40,8 @@ const EditTimer: React.FC = () => {
   const initializeState = async () => {
     if (id !== "new") {
       try {
-        const data = await dataAccess.getTimer(id);
-        setTimer(data.timer);
+        const timer = await dataAccess.getTimer(id);
+        if (timer) setTimer(timer);
       } catch (err) {
         return <Error error={err} />;
       }

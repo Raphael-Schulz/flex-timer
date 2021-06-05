@@ -14,7 +14,7 @@ import styled from "styled-components";
 import { create, trash } from "ionicons/icons";
 import { Timer } from "../utils/dataModel";
 import { EDIT_ROUTE, EXECUTE_ROUTE } from "../utils/constants";
-import { DatabaseAccess } from "../data/dataAccess";
+import { LoaclStorageAccess } from "../data/dataAccess";
 import { Error } from "./Status-Messages";
 
 const StyledList = styled(IonList)`
@@ -24,7 +24,7 @@ const StyledList = styled(IonList)`
 `;
 
 const TimerList: React.FC = () => {
-  const dataAccess = new DatabaseAccess();
+  const dataAccess = new LoaclStorageAccess();
   const history = useHistory();
 
   const [showDeleteRequestAlert, setShowDeleteRequestAlert] = useState(false);

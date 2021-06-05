@@ -11,6 +11,10 @@ export interface TimerEvent {
   text: string;
 }
 
+export interface GetTimersResponse {
+  timers: Timer[]
+}
+
 export interface Toast {
   text: string;
   showToast: boolean;

@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import EditTimer from "./pages/EditTimer";
 import ExecuteTimer from "./pages/ExecuteTimer";
 import { HOME_ROUTE, EDIT_ROUTE, EXECUTE_ROUTE } from "./utils/constants";
-import { BackgroundMode } from "@ionic-native/background-mode";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import { graphQLserverUri } from "./utils/constants";
@@ -35,8 +34,7 @@ const client = new ApolloClient({
 });
 
 const App: React.FC = () => {
-  let backgroundMode = BackgroundMode;
-  backgroundMode.enable();
+
 
   return (
     <ApolloProvider client={client}>
